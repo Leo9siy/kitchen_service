@@ -12,6 +12,10 @@ class CookModel(AbstractUser):
     year_of_experience = models.IntegerField(default=0)
     username = models.CharField(max_length=30, unique=True)
 
+    class Meta:
+        ordering = ['username']
+
+
     def __str__(self):
         return self.username
 
