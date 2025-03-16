@@ -1,1 +1,56 @@
 {% extends "base.html" %}
+{% load static %}
+{% block title %}
+  {{ dish.name }}
+{% endblock %}
+{% block content %}
+  <div style="text-align: center">
+    <h1 style="text-align: center">
+      {{ dish.name }}
+    </h1>
+    <p>
+      <a class="btn btn-primary" href={% url 'kitchen:dish_update' dish.id %}>update</a>
+      <a class="btn btn-danger" href={% url 'kitchen:dish_delete' dish.id %}>delete</a>
+      <a class="btn" href={% url 'kitchen:dishes'%}>back</a>
+           
+      
+    </p>
+      <img alt="img" src={% static dish.get_img %}>
+
+    <table class="table" style="display: grid; place-items: center; padding: 10px">
+      <tr>
+        <th>Type</th>
+        <th>Cookers</th>
+        <th>Price</th>
+        <th>Ingridients</th>
+      </tr>
+      <tr>
+        <td>{{ dish.dish_type }}</td>
+        <td>
+        <ul>
+          {% for cook in dish.get_cooks %}
+            <li>
+              {{ cook.username }}
+            </li>
+          {% endfor %}
+        </ul>
+
+        </td>
+        <td>{{ dish.price }}$</td>
+        <td>
+        <ul>
+          {% for ingridient in dish.get_ingredients %}
+            <li>
+              {{ ingridient }}
+            </li>
+          {% endfor %}
+        </ul>
+
+
+        </td>
+      </tr>
+    </table>
+  </div>
+
+
+{% endblock %}

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView, DetailView
 
-from kitchen_app.forms import CookCreateForm
+from kitchen_app.forms import CookCreateForm, DishCreateForm, DishSearchForm
 from kitchen_app.models import DishModel, CookModel, IngredientModel, DishTypeModel
 
 
@@ -20,10 +20,10 @@ class DishListView(ListView):
         if request.method == "POST":
             pk = request.POST.get("id")
 
-            dish = DishModel.objects.get(
-                pk=pk
-            )
-            if dish:
+            if pk:
+                dish = DishModel.objects.get(
+                    pk=pk
+                )
                 new_name = request.POST.get("new_name")
                 if new_name:
                     dish.name = request.POST.get("new_name")
@@ -32,6 +32,29 @@ class DishListView(ListView):
                     dish.delete()
 
             return redirect("kitchen_app:dishes")
+
+    def get_context_data(
+        self, *, object_list = ..., **kwargs
+    ):
+        context = super(DishListView, self).get_context_data(**kwargs)
+
+        if self.request.method == "GET":
+            dish_name = self.request.GET.get("dish_name", "")
+            context["dish_name"] = dish_name
+
+            context["search"] = DishSearchForm(
+                initial={"dish_name": dish_name}
+            )
+        return context
+
+    def get_queryset(self):
+        query_set = DishModel.objects.all().select_related("dish_type").prefetch_related("ingredients")
+        if self.request.method == "GET":
+            form = DishSearchForm(self.request.GET)
+            if form.is_valid():
+                return query_set.filter(name__icontains=form.cleaned_data["dish_name"])
+
+        return query_set
 
 
 class DishDetailView(DetailView):
@@ -43,17 +66,23 @@ class DishDetailView(DetailView):
 
 class DishCreateView(CreateView):
     model = DishModel
-    fields = "__all__"
     template_name = "kitchen/dish/create.html"
     success_url = reverse_lazy("kitchen_app:dishes")
+    form_class = DishCreateForm
 
 
 class DishUpdateView(UpdateView):
     model = DishModel
+    template_name = "kitchen/dish/create.html"
+    success_url = reverse_lazy("kitchen_app:dishes")
+    form_class = DishCreateForm
 
 
 class DishDeleteView(DeleteView):
     model = DishModel
+    template_name = "kitchen/dish/delete.html"
+    success_url = reverse_lazy("kitchen_app:dishes")
+
 
 
 class IngredientListView(ListView):

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 
 {% block title %}
   Dishes
@@ -10,6 +11,11 @@
       Create dish
     </a>
   </div>
+    <form action="" method="get">
+      {{ search|crispy }}
+    <input type="submit" value="search" class="btn btn-primary">
+    </form>
+
 
   {% if dish_list %}
     <table class="table">
@@ -43,7 +49,7 @@
             <td>
               {{ dish.description }}
             </td>
-            
+
             <td>
               <ul>
                 {% for cook in dish.get_cooks %}
@@ -57,16 +63,16 @@
             </td>
 
             <td>
-              <form action='' method="post">
+              <form action='' method="post" name="update">
                 {% csrf_token %}
                 <input value="{{ dish.id }}" hidden="hidden" name="id">
                 <input type="text" name="new_name">
                 <button class="btn btn-primary" type="submit" name={{ dish.id }}>update</button>
               </form>
             </td>
-          
+
             <td>
-              <form action='' method="post">
+              <form action='' method="post" name="delete">
                 {% csrf_token %}
                 <input value="{{ dish.id }}" hidden="hidden" name="id">
                 <button class="btn btn-primary" type="submit" name={{ dish.id }}>delete</button>

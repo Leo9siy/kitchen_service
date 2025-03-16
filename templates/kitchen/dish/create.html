@@ -1,11 +1,18 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block title %}
+  {{ object|yesno:"Update,Create" }}
+{% endblock %}
 {% block content %}
-  <form action='' method="post" novalidate>
-  
-    {% csrf_token %}
-    {{ form }}
-    <button class="btn btn-primary">create</button>
-  
-  </form>
+  <div style="display: block; text-align: center">
+     <form action='' method="post" novalidate style="display: inline-block; text-align: left">
+    
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button class="btn btn-primary" style="display: flex">update</button>
+    
+    </form>
+  </div>
+
 
 {% endblock %}

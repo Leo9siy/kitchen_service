@@ -43,3 +43,8 @@ class DishModel(models.Model):
 
     def get_cooks(self):
         return self.cooks.all()
+
+    def get_img(self):
+        return "img/" + self.name.lower() + ".jpg"
+
+
