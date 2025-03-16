@@ -26,5 +26,5 @@ class DishModelAdmin(admin.ModelAdmin):
     search_fields = ["name"]
 
 
-admin.site.register(models.DishType)
-admin.site.register(models.Ingredient)
+admin.site.register(models.DishTypeModel)
+admin.site.register(models.IngredientModel)

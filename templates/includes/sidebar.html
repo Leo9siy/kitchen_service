@@ -1,0 +1,28 @@
+<div style="margin: 10px; padding: 10px; min-height: 100%; min-width: 100%; display: block; position: sticky">
+  <div style="display: flex; justify-content: space-between;
+                align-items: center; justify-items: center; margin: 1.0rem">
+    <div style="justify-content: flex-start">
+      <a style="padding: 20px" href={% url 'kitchen:index' %}>Home</a>
+      <a style="padding: 20px" href={% url 'kitchen:dishes' %}>Dishes</a>
+      <a style="padding: 20px" href={% url 'kitchen:dish_types' %}>Dishes types</a>
+      <a style="padding: 20px" href={% url 'kitchen:ingredients' %}>Ingridients</a>
+      <a style="padding: 20px" href={% url 'kitchen:cookers' %}>Cookers</a>
+
+    </div>
+
+    <div style="justify-content: flex-end;">
+      {% if user.is_authenticated %}
+        <h4 style="padding: 20px; display: inline-block">{{ user.username }}</h4>
+
+        <form style="padding: 20px; display: inline-block" id="logout-form" method="post" action="{% url 'admin:logout' %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-info">Logout</button>
+        </form>
+      {% else %}
+        <a style="padding: 20px" href={% url 'login' %}>Login</a>
+      {% endif %}
+
+    </div>
+  </div>
+
+</div>

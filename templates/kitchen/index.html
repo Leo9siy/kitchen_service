@@ -1,2 +1,27 @@
 {% extends "base.html" %}
 {% load static %}
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+  <link rel="stylesheet" href={% static 'css/home.css' %}>
+  <section style="display: grid; margin-bottom: 60px; text-align: center; position: relative">
+    <h1 style="margin-bottom: 50px">
+      Own Menu
+    </h1>
+    <h3>
+      Alcohol
+    </h3>
+    <a href="{% url 'kitchen:dish_detail' 1 %}">
+      <img alt="Alkohol" src={% static 'img/alkohol.jpg'%}>
+    </a>
+
+    <h3>
+      Pizza
+    </h3>
+    <a href={% url 'kitchen:dish_detail' 2%}>
+      <img alt="Pizza" src={% static 'img/pizza.jpg' %}>
+    </a>
+  </section>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block title %}
+  SignUp
+{% endblock %}
+{% block content %}
+    {% if error %}
+      <p style="color: red">Your username and password didn't match. Please try again.</p>
+    {% endif %}
+
+    <form style="display: grid; place-content: center"
+        action="{% url 'sign-up' %}" method="post" novalidate>
+        {% csrf_token %}
+        {{ form|crispy }}
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+{% endblock %}
