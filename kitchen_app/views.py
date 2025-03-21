@@ -7,7 +7,15 @@ from kitchen_app.models import DishModel, CookModel, IngredientModel, DishTypeMo
 
 
 def index(request):
-    return render(request, template_name="kitchen/index.html")
+    context = {
+        "dishes": DishModel.objects.all()[:3],
+        "dish_count": DishModel.objects.count(),
+        "cooks_count": CookModel.objects.count(),
+        "ingredients_count": IngredientModel.objects.count(),
+        "dish_types_count": DishTypeModel.objects.count()
+    }
+
+    return render(request, template_name="kitchen/index.html", context=context)
 
 
 class DishListView(ListView):
@@ -144,3 +152,9 @@ class DishTypeListView(ListView):
 class DishTypeDetailView(DetailView):
     model = DishTypeModel
     template_name = "kitchen/dish_type/detail.html"
+
+
+class DishTypeCreateView(CreateView):
+    model = DishTypeModel
+    fields = "__all__"
+    template_name = "kitchen/dish_type/create.html"

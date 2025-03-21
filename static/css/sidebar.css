@@ -1,0 +1,37 @@
+.sidebar-container{
+    display: block;
+    padding: 0 20px 0 20px;
+    position: sticky;
+    margin: 0;
+    top: 0;
+    z-index: 1;
+    background-color: gray;
+    border-radius: 30px;
+    height: 50px;
+    --height: 50px;
+}
+.flex {
+    display: flex;
+    justify-content: space-between;
+    place-items: center;
+    height: var(--height);
+}
+.sidebar-container a {
+    text-decoration: none;
+    color: white;
+    padding-right: 20px;
+}
+.sidebar-container a:hover {
+    color: orangered;
+    text-decoration: auto;
+}
+.flex-end {
+    justify-content: flex-end;
+    display: flex;
+    place-items: center;
+}
+.flex-end p {
+    font-size: 1.5rem;
+    padding-right: 20px;
+    margin: 0;
+}

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% load crispy_forms_filters %}
 
 {% block title %}
@@ -11,7 +12,7 @@
       Create dish
     </a>
   </div>
-    <form action="" method="get">
+    <form action="" method="get" class="form-inline">
       {{ search|crispy }}
     <input type="submit" value="search" class="btn btn-primary">
     </form>
@@ -25,6 +26,7 @@
         <th>Ingridients</th>
         <th>Price</th>
         <th>Description</th>
+        <th>View</th>
         <th>Cookers</th>
         <th></th>
         <th></th>
@@ -49,6 +51,9 @@
             <td>
               {{ dish.description }}
             </td>
+          <td>
+            <img alt="img" width="128" height="128" src={% static dish.get_img %}>
+          </td>
 
             <td>
               <ul>

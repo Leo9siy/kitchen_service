@@ -1,27 +1,75 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}
-Home
-{% endblock %}
+{% block title %}Home{% endblock %}
 
 {% block content %}
   <link rel="stylesheet" href={% static 'css/home.css' %}>
-  <section style="display: grid; margin-bottom: 60px; text-align: center; position: relative">
-    <h1 style="margin-bottom: 50px">
-      Own Menu
-    </h1>
-    <h3>
-      Alcohol
-    </h3>
-    <a href="{% url 'kitchen:dish_detail' 1 %}">
-      <img alt="Alkohol" src={% static 'img/alkohol.jpg'%}>
-    </a>
 
-    <h3>
-      Pizza
-    </h3>
-    <a href={% url 'kitchen:dish_detail' 2%}>
-      <img alt="Pizza" src={% static 'img/pizza.jpg' %}>
-    </a>
-  </section>
+<div class="container3">
+  <h1>
+    Welcome to Kitchen!
+  </h1>
+  <h4>
+    Here we have many Dishes
+  </h4>
+  <div class="images">
+    {% for dish in dishes %}
+      <div class="image">
+        <a href={% url 'kitchen:dish_detail' dish.id %}>
+          <img alt="img" src="{% static dish.get_img %}">
+        </a>
+          <div class="image-description">
+            <p>{{ dish.name }}</p>
+          </div>
+      </div>
+    {% endfor %}
+  </div>
+
+</div>
+
+
+<section class="pt-3 pb-4" id="count-stats">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-9 z-index-2 border-radius-xl mt-n10 mx-auto py-3 blur shadow-blur">
+        <div class="row">
+          <div class="col-md-3 position-relative">
+            <div class="p-3 text-center">
+              <h1 class="text-gradient text-primary">
+                <span id="state1">{{ dish_count }}</span>+
+              </h1>
+              <h5 class="mt-3">Dishes</h5>
+              <p class="text-sm">From very simple to cook to delicates</p>
+            </div>
+            <hr class="vertical dark">
+          </div>
+          <div class="col-md-3 position-relative">
+            <div class="p-3 text-center">
+              <h1 class="text-gradient text-primary" id="state2">{{ cooks_count }}+</h1>
+              <h4 class="mt-3">Cooks</h4>
+              <p class="text-sm">Who exactly know how to cook very delicious food</p>
+            </div>
+            <hr class="vertical dark">
+          </div>
+          <div class="col-md-3">
+            <div class="p-3 text-center">
+              <h1 class="text-gradient text-primary" id="state3">{{ ingredients_count }}+</h1>
+              <h5 class="mt-3">Ingredients</h5>
+              <p class="text-sm">So you can choose which tasty you will have today</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="p-3 text-center">
+              <h1 class="text-gradient text-primary" id="state3">{{ dish_types_count }}+</h1>
+              <h5 class="mt-3">Dish types</h5>
+              <p class="text-sm">For all people with different prefered</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 {% endblock %}
