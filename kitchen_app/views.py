@@ -1,9 +1,12 @@
+from django.contrib.auth import authenticate, login
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView, DetailView
 
 from kitchen_app.forms import CookCreateForm, DishCreateForm, DishSearchForm
 from kitchen_app.models import DishModel, CookModel, IngredientModel, DishTypeModel
+from kitchen_service.settings import LOGIN_REDIRECT_URL
 
 
 def index(request):
@@ -17,6 +20,31 @@ def index(request):
 
     return render(request, template_name="kitchen/index.html", context=context)
 
+
+def login_view(request) -> HttpResponse:
+    if request.method == "GET":
+        context = {
+            "username": request.session.get("username", ""),
+            "password": request.session.get("password", "")
+        }
+        return render(request, template_name="registration/login.html", context=context)
+    elif request.method == "POST":
+
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user =  authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+
+                if request.POST.get("remember"):
+                    request.session["username"] = username
+                    request.session["password"] = password
+                return redirect(LOGIN_REDIRECT_URL)
+            else:
+                return render(request, template_name="registration/login.html")
+        return render(request, template_name="registration/login.html", context={"error": "Invalid username and/or password."})
+    return render(request, template_name="registration/login.html")
 
 class DishListView(ListView):
     model = DishModel

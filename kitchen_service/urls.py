@@ -17,11 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from kitchen_app.views import CookCreateView
+from kitchen_app.views import CookCreateView, login_view
 
 urlpatterns = [
         path('admin/', admin.site.urls),
         path("", include("kitchen_app.urls", namespace="kitchen")),
-        path("accounts/", include("django.contrib.auth.urls")),
+
         path("accounts/sign-up/", CookCreateView.as_view(), name="sign-up"),
+        path("accounts/login/", login_view, name="login"),
 ]

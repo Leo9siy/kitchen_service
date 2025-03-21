@@ -1,24 +1,22 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins",sans-serif;
-}
 body{
-    display: flex;
+    background-image: linear-gradient(#e66465, #9198e5);
+    display: block;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-image: url('static/img/login.jpg');
     background-size: cover;
     background-position: center;
 }
 .wrapper{
+    display: flex;
+    place-items: center;
+    place-self: center;
+    place-content: center;
+    margin: 120px auto;
     width: 420px;
     background: transparent;
-    border: 2px solid rgba(255,255,255,.2);
-    backdrop-filter: blur(20px);
+    border: 2px solid rgba(68,24,127,.2);
+    backdrop-filter: blur(1.5rem);
     box-shadow: 0 0 10px rgba(0,0,0,.2);
     color: #fff;
     border-radius: 10px;
@@ -38,7 +36,6 @@ body{
     width: 100%;
     height: 100%;
     background: transparent;
-    border: none;
     outline: none;
     border: 2px solid rgba(255,255,255,.2);
     border-radius: 40px;
