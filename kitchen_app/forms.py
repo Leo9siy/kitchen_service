@@ -6,7 +6,36 @@ from kitchen_app.models import CookModel, DishModel, IngredientModel
 
 
 class CookCreateForm(UserCreationForm):
-
+    username = forms.CharField(
+        label="",
+        widget=forms.TextInput(
+            attrs={"placeholder": "Username"}
+        )
+    )
+    email = forms.EmailField(
+        label="",
+        widget=forms.EmailInput(
+            attrs={"placeholder": "Email"}
+        )
+    )
+    year_of_experience = forms.IntegerField(
+        label="",
+        widget=forms.NumberInput(
+            attrs={"placeholder": "Your experience"}
+        )
+    )
+    password1 = forms.CharField(
+        label="",
+        widget=forms.PasswordInput(
+            attrs={"placeholder": "Password"}
+        )
+    )
+    password2 = forms.CharField(
+        label="",
+        widget=forms.PasswordInput(
+            attrs={"placeholder": "Password (again)"}
+        )
+    )
     class Meta:
         model = CookModel
         fields = ('username', 'email', 'year_of_experience', 'password1', 'password2')

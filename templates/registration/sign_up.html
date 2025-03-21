@@ -4,15 +4,17 @@
   SignUp
 {% endblock %}
 {% block content %}
-    {% if error %}
-      <p style="color: red">Your username and password didn't match. Please try again.</p>
-    {% endif %}
-
-    <form style="display: grid; place-content: center"
-        action="{% url 'sign-up' %}" method="post" novalidate>
+    {% load static %}
+    <link type="text/css" rel="stylesheet" href={% static 'css/register.css' %}>
+  
+  <div class="wrapper">
+    <form action="{% url 'sign-up' %}" method="post" novalidate>
+      <h1>Register</h1>
         {% csrf_token %}
         {{ form|crispy }}
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+  </div>
+
 
 {% endblock %}
