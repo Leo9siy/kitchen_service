@@ -1,10 +1,11 @@
 table {
     backdrop-filter: blur(20px);
+    text-align: center;
 }
 .page-list {
     max-width: 50%;
 }
-.list-dish-type p {
+.list-ingredients p {
     padding: 20px;
     color: white;
     text-align: center;
@@ -25,13 +26,8 @@ table {
 form div {
     display: inline-block;
 }
-.create-dish-type {
-    place-items: flex-end;
-    justify-content: flex-end;
-}
 .table {
     color: white;
-    text-align: center;
 }
 .table th {
     font-size: 1.5rem;

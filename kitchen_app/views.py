@@ -48,6 +48,7 @@ def login_view(request) -> HttpResponse:
         return render(request, template_name="registration/login.html", context={"error": "Invalid username and/or password."})
     return render(request, template_name="registration/login.html")
 
+
 class DishListView(ListView):
     model = DishModel
     template_name = "kitchen/dish/list.html"
@@ -114,13 +115,28 @@ class IngredientListView(ListView):
     paginate_by = 5
 
 
+    def post(self, request, *args, **kwargs):
+        context = request.POST.copy()
+        if "pk" in context:
+            ingredient = IngredientModel.objects.get(pk=context["pk"])
+
+            if "new_name" in context:
+                new_name = context["new_name"]
+                if len(new_name) > 0:
+                    ingredient.name = new_name
+                    ingredient.save()
+            else:
+                ingredient.delete()
+
+            return redirect("kitchen_app:ingredients")
+
     def get_queryset(self):
         query_set = IngredientModel.objects.all()
         if self.request.method == "GET":
             form = IngredientSearchForm(self.request.GET)
             if form.is_valid():
                 name = form.cleaned_data["ingredient_name"]
-                queryset = IngredientModel.objects.filter(name__icontains=name)
+                return query_set.filter(name__icontains=name)
         return query_set
 
 
@@ -140,27 +156,8 @@ class IngredientListView(ListView):
 class IngredientCreateView(LoginRequiredMixin, CreateView):
     model = IngredientModel
     fields = "__all__"
+    template_name = "kitchen/ingredient/create.html"
     success_url = reverse_lazy("kitchen_app:ingredients")
-
-
-class IngredientUpdateView(LoginRequiredMixin, UpdateView):
-    model = IngredientModel
-    fields = "__all__"
-    template_name = "kitchen/ingredient/detail.html"
-    success_url = reverse_lazy("kitchen_app:ingredients")
-
-
-class IngredientDeleteView(LoginRequiredMixin, DeleteView):
-    model = IngredientModel
-    context_object_name = "ingredient"
-    success_url = reverse_lazy("kitchen_app:ingredients")
-
-
-
-class IngredientDetailView(LoginRequiredMixin, DetailView):
-    model = IngredientModel
-    template_name = "kitchen/ingredient/detail.html"
-    context_object_name = "ingredient"
 
 
 class CookCreateView(CreateView):
@@ -175,6 +172,7 @@ class CookListView(ListView):
     template_name = "kitchen/cook/list.html"
     context_object_name = "cook_list"
     paginate_by = 5
+
 
     def get_context_data(self, *, object_list = ..., **kwargs):
         context = super(CookListView, self).get_context_data(**kwargs)

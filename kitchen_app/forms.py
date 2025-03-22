@@ -56,7 +56,7 @@ class CookSearchForm(forms.Form):
         label='',
         max_length=100,
         widget=forms.TextInput(
-            attrs={"placeholder" : "Search by cook name"}
+            attrs={"placeholder" : "Search by name"}
         )
     )
 
@@ -66,7 +66,7 @@ class DishTypeSearchForm(forms.Form):
         label='',
         max_length=100,
         widget=forms.TextInput(
-            attrs={"placeholder" : "Search by type name"}
+            attrs={"placeholder" : "Search by type"}
         )
     )
 
@@ -76,7 +76,7 @@ class IngredientSearchForm(forms.Form):
         label='',
         max_length=100,
         widget=forms.TextInput(
-            attrs={"placeholder" : "Search by ingredient name"}
+            attrs={"placeholder" : "Search by ingredient"}
         )
     )
 

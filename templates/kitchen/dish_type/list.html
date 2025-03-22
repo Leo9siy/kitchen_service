@@ -17,21 +17,25 @@
           {{ search }}
         </form>
       </div>
-      <div class="create-type">
-        <a href="{% url 'kitchen:dish_type_create' %}" class="btn btn-primary link-to-page">
-          Create dish type
-        </a>
+      <div class="create-dish-type">
+        {% if user.is_authenticated %}
+          <a href="{% url 'kitchen:dish_type_create' %}" class="btn btn-primary link-to-page">
+            Create dish type
+          </a>
+        {% endif %}
       </div>
     </div>
   <br>
-    <div class="dishes">
-      <div class="list-dishes">
+    <div class="dish-types">
+      <div class="list-dish-type">
         {% if dish_type_list %}
           <table class="table">
             <tr>
-              <th>Type</th>
-              <th></th>
-              <th></th>
+              <th>Dish Type</th>
+              {% if user.is_authenticated %}
+                <th></th>
+                <th></th>
+              {% endif %}
             </tr>
             <tr>
               {% for type in dish_type_list %}
@@ -39,12 +43,13 @@
                   <td>
                       {{ type.name }}
                   </td>
+                {% if user.is_authenticated %}
                   <td>
                     <form method="post" action="">
                       {% csrf_token %}
                       <input name="pk" type="hidden" value={{ type.id }}>
                       <input type="text" name="new_name">
-                      <button class="btn btn-primary" type="submit">update</button> 
+                      <button class="btn btn-primary" type="submit">update</button>
                     </form>
                   </td>
                   <td>
@@ -54,11 +59,13 @@
                       <button class="btn btn-danger" type="submit">Delete</button>
                     </form>
                   </td>
+                {% endif %}
+
                 </tr>
               {% endfor %}
           </table>
         {% else %}
-          <p>There is no Cooker to view :(</p>
+          <p>There is no Dish type to view :(</p>
         {% endif %}
       </div>
     </div>
