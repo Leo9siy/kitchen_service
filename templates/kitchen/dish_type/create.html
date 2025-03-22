@@ -1,4 +1,21 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 {% block title %}
-  Dish Type
+  {{ object|yesno:"Update,Create" }}
+{% endblock %}
+{% block content %}
+  {% load static %}
+  <link type="text/css" rel="stylesheet" href={% static 'css/dish/create.css' %}>
+  
+  <div class="page">
+     <form action='' method="post" class="form" novalidate>
+
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button class="btn btn-primary button">{{ object|yesno:"Update,Create" }}</button>
+         <a class="btn btn-secondary" href={% url 'kitchen:dish_types' %}>Back</a>
+    </form>
+  </div>
+
+
 {% endblock %}

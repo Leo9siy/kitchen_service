@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractUser
+from django.core.exceptions import ValidationError
 from django.db import models
 
 
@@ -41,6 +42,14 @@ class DishModel(models.Model):
 
     def __str__(self):
         return self.name
+
+    def clean(self):
+        if self.ingredients.count() == 0:
+            raise ValidationError('ingredients must have at least one ingredient')
+        if self.cooks.count() == 0:
+            raise ValidationError('cooks must have at least one cook')
+        if self.price <= 0:
+            raise ValidationError('price must be greater than zero')
 
     def get_ingredients(self):
         return self.ingredients.all()

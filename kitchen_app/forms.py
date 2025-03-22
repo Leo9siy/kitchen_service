@@ -51,6 +51,36 @@ class DishSearchForm(forms.Form):
     )
 
 
+class CookSearchForm(forms.Form):
+    cook_name = forms.CharField(
+        label='',
+        max_length=100,
+        widget=forms.TextInput(
+            attrs={"placeholder" : "Search by cook name"}
+        )
+    )
+
+
+class DishTypeSearchForm(forms.Form):
+    type_name = forms.CharField(
+        label='',
+        max_length=100,
+        widget=forms.TextInput(
+            attrs={"placeholder" : "Search by type name"}
+        )
+    )
+
+
+class IngredientSearchForm(forms.Form):
+    ingredient_name = forms.CharField(
+        label='',
+        max_length=100,
+        widget=forms.TextInput(
+            attrs={"placeholder" : "Search by ingredient name"}
+        )
+    )
+
+
 class DishCreateForm(forms.ModelForm):
     cooks = forms.ModelMultipleChoiceField(
         queryset=get_user_model().objects.all(),

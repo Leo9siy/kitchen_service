@@ -5,17 +5,20 @@
 {% endblock %}
 {% block content %}
   {% load static %}
-  <link type="text/css" rel="stylesheet" href={% static 'css/dish/detail.css' %}>
-  
-  <div>
+    <link type="text/css" rel="stylesheet" href={% static 'css/dish/detail.css' %}>
+
+  <div class="page">
     <h1>
       {{ dish.name }}
     </h1>
-    <p>
+  {% if user.is_authenticated %}
+    <div class="nav">
       <a class="btn btn-primary" href={% url 'kitchen:dish_update' dish.id %}>update</a>
       <a class="btn btn-danger" href={% url 'kitchen:dish_delete' dish.id %}>delete</a>
-      <a class="btn" href={% url 'kitchen:dishes'%}>back</a>
-    </p>
+      <a class="btn btn-success" href={% url 'kitchen:dishes'%}>back</a>
+    </div>
+  {% endif %}
+
       <img alt="img" src={% static dish.get_img %}>
 
     <table class="table">

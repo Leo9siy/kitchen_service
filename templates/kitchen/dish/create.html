@@ -4,13 +4,22 @@
   {{ object|yesno:"Update,Create" }}
 {% endblock %}
 {% block content %}
-  <div style="display: block; text-align: center">
-     <form action='' method="post" novalidate style="display: inline-block; text-align: left">
-    
+  {% load static %}
+  <link type="text/css" rel="stylesheet" href={% static 'css/dish/create.css' %}>
+  
+  <div class="page">
+     <form action='' method="post" class="form" novalidate>
+
       {% csrf_token %}
       {{ form|crispy }}
-      <button class="btn btn-primary" style="display: flex">update</button>
-    
+      <button class="btn btn-primary button">{{ object|yesno:"Update,Create" }}</button>
+       {% if object %}
+         <a class="btn btn-secondary" href={% url 'kitchen:dish_detail' object.id %}>Back</a>
+       {% else %}
+         <a class="btn btn-secondary" href={% url 'kitchen:dishes' %}>Back</a>
+       {% endif %}
+      
+
     </form>
   </div>
 

@@ -5,8 +5,7 @@
     margin: 0;
     top: 0;
     z-index: 1;
-    background-color: gray;
-    border-radius: 30px;
+    backdrop-filter: blur(5px);
     height: 50px;
     --height: 50px;
 }
@@ -19,10 +18,10 @@
 .sidebar-container a {
     text-decoration: none;
     color: white;
-    padding-right: 20px;
+    padding: 10px;
 }
 .sidebar-container a:hover {
-    color: orangered;
+    color: white;
     text-decoration: auto;
 }
 .flex-end {
