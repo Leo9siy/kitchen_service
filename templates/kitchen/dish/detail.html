@@ -4,20 +4,21 @@
   {{ dish.name }}
 {% endblock %}
 {% block content %}
-  <div style="text-align: center">
-    <h1 style="text-align: center">
+  {% load static %}
+  <link type="text/css" rel="stylesheet" href={% static 'css/dish/detail.css' %}>
+  
+  <div>
+    <h1>
       {{ dish.name }}
     </h1>
     <p>
       <a class="btn btn-primary" href={% url 'kitchen:dish_update' dish.id %}>update</a>
       <a class="btn btn-danger" href={% url 'kitchen:dish_delete' dish.id %}>delete</a>
       <a class="btn" href={% url 'kitchen:dishes'%}>back</a>
-           
-      
     </p>
       <img alt="img" src={% static dish.get_img %}>
 
-    <table class="table" style="display: grid; place-items: center; padding: 10px">
+    <table class="table">
       <tr>
         <th>Type</th>
         <th>Cookers</th>
@@ -45,8 +46,6 @@
             </li>
           {% endfor %}
         </ul>
-
-
         </td>
       </tr>
     </table>

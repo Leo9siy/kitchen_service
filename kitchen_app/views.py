@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
@@ -50,24 +51,8 @@ class DishListView(ListView):
     model = DishModel
     template_name = "kitchen/dish/list.html"
     context_object_name = "dish_list"
+    paginate_by = 5
 
-
-    def post(self, request, *args, **kwargs):
-        if request.method == "POST":
-            pk = request.POST.get("id")
-
-            if pk:
-                dish = DishModel.objects.get(
-                    pk=pk
-                )
-                new_name = request.POST.get("new_name")
-                if new_name:
-                    dish.name = request.POST.get("new_name")
-                    dish.save()
-                else:
-                    dish.delete()
-
-            return redirect("kitchen_app:dishes")
 
     def get_context_data(
         self, *, object_list = ..., **kwargs
@@ -93,32 +78,31 @@ class DishListView(ListView):
         return query_set
 
 
-class DishDetailView(DetailView):
+class DishDetailView(DetailView, LoginRequiredMixin):
     model = DishModel
     template_name = "kitchen/dish/detail.html"
     fields = "__all__"
     context_object_name = "dish"
 
 
-class DishCreateView(CreateView):
+class DishCreateView(CreateView, LoginRequiredMixin):
     model = DishModel
     template_name = "kitchen/dish/create.html"
     success_url = reverse_lazy("kitchen_app:dishes")
     form_class = DishCreateForm
 
 
-class DishUpdateView(UpdateView):
+class DishUpdateView(UpdateView, LoginRequiredMixin):
     model = DishModel
     template_name = "kitchen/dish/create.html"
     success_url = reverse_lazy("kitchen_app:dishes")
     form_class = DishCreateForm
 
 
-class DishDeleteView(DeleteView):
+class DishDeleteView(DeleteView, LoginRequiredMixin):
     model = DishModel
     template_name = "kitchen/dish/delete.html"
     success_url = reverse_lazy("kitchen_app:dishes")
-
 
 
 class IngredientListView(ListView):
@@ -126,28 +110,28 @@ class IngredientListView(ListView):
     template_name = "kitchen/ingredient/list.html"
 
 
-class IngredientCreateView(CreateView):
+class IngredientCreateView(CreateView, LoginRequiredMixin):
     model = IngredientModel
 
 
-class IngredientUpdateView(UpdateView):
+class IngredientUpdateView(UpdateView, LoginRequiredMixin):
     model = IngredientModel
     fields = "__all__"
     template_name = "kitchen/ingredient/detail.html"
 
 
-class IngredientDeleteView(DeleteView):
+class IngredientDeleteView(DeleteView, LoginRequiredMixin):
     model = IngredientModel
     success_url = reverse_lazy("kitchen_app:ingredients")
 
 
 
-class IngredientDetailView(DetailView):
+class IngredientDetailView(DetailView, LoginRequiredMixin):
     model = IngredientModel
     template_name = "kitchen/ingredient/detail.html"
 
 
-class CookCreateView(CreateView):
+class CookCreateView(CreateView, LoginRequiredMixin):
     model = CookModel
     template_name = "registration/sign_up.html"
     success_url = reverse_lazy("index")
@@ -159,15 +143,15 @@ class CookListView(ListView):
     template_name = "kitchen/cook/list.html"
 
 
-class CookDetailView(DetailView):
+class CookDetailView(DetailView, LoginRequiredMixin):
     model = CookModel
 
 
-class UpdateCookView(UpdateView):
+class UpdateCookView(UpdateView, LoginRequiredMixin):
     model = CookModel
 
 
-class DeleteCookView(DeleteView):
+class DeleteCookView(DeleteView, LoginRequiredMixin):
     model = CookModel
 
 
@@ -177,12 +161,12 @@ class DishTypeListView(ListView):
     template_name = "kitchen/dish_type/list.html"
 
 
-class DishTypeDetailView(DetailView):
+class DishTypeDetailView(DetailView, LoginRequiredMixin):
     model = DishTypeModel
     template_name = "kitchen/dish_type/detail.html"
 
 
-class DishTypeCreateView(CreateView):
+class DishTypeCreateView(CreateView, LoginRequiredMixin):
     model = DishTypeModel
     fields = "__all__"
     template_name = "kitchen/dish_type/create.html"

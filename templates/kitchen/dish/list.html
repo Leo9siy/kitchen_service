@@ -7,87 +7,80 @@
 {% endblock %}
 
 {% block content %}
-  <div style="margin-bottom: 40px">
-    <a href="{% url 'kitchen:dish_create' %}" class="btn btn-primary link-to-page">
-      Create dish
-    </a>
+  <link rel="stylesheet" type="text/css" href={% static 'css/dish/list.css' %}>
+
+  <div class="page-list">
+    <div class="navigation">
+      <div class="search-dish">
+        <form action="" method="get" class="search-form" novalidate>
+          <input type="submit" value="🔍" class="btn btn-primary">
+          {{ search }}
+        </form>
+      </div>
+      <div class="create-dish">
+        <a href="{% url 'kitchen:dish_create' %}" class="btn btn-primary link-to-page">
+          Create dish
+        </a>
+      </div>
+    </div>
+  <br>
+    <div class="dishes">
+      <div class="list-dishes">
+        {% if dish_list %}
+          <table class="table">
+            <tr>
+              <th>Dish</th>
+              <th>Type</th>
+              <th>Ingridients</th>
+              <th>Price</th>
+              <th>Description</th>
+              <th>Cookers</th>
+            </tr>
+            <tr>
+              {% for dish in dish_list %}
+                <tr>
+                  <td>
+                    <a href={% url 'kitchen:dish_detail' dish.id %}>
+                      <img alt="{{ dish.name }}" src={% static dish.get_img %}>
+                    </a>
+                  </td>
+                  <td>{{ dish.dish_type.name }}</td>
+                  <td>
+                    <ul>
+                      {% for ingridient in dish.get_ingredients %}
+                        <li>
+                          {{ ingridient }}
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </td>
+                  <td>
+                    ${{ dish.price }}
+                  </td>
+                  <td>
+                    {{ dish.description }}
+                  </td>
+
+                  <td>
+                    <ul>
+                      {% for cook in dish.get_cooks %}
+                        <li>
+                          {{ cook }}
+                        </li>
+                      {% empty %}
+                        <li>No one wanna cook this</li>
+                      {% endfor %}
+                    </ul>
+                  </td>
+                </tr>
+              {% endfor %}
+          </table>
+        {% else %}
+          <p>There is no Dish to view :(</p>
+        {% endif %}
+      </div>
+    </div>
+
   </div>
-    <form action="" method="get" class="form-inline">
-      {{ search|crispy }}
-    <input type="submit" value="search" class="btn btn-primary">
-    </form>
-
-
-  {% if dish_list %}
-    <table class="table">
-      <tr>
-        <th>Dish</th>
-        <th>Type</th>
-        <th>Ingridients</th>
-        <th>Price</th>
-        <th>Description</th>
-        <th>View</th>
-        <th>Cookers</th>
-        <th></th>
-        <th></th>
-      </tr>
-      <tr>
-        {% for dish in dish_list %}
-          <tr>
-            <td><a href={% url 'kitchen:dish_detail' dish.id %}>{{ dish.name }}</a></td>
-            <td>{{ dish.dish_type.name }}</td>
-            <td>
-              <ul>
-                {% for ingridient in dish.get_ingredients %}
-                  <li>
-                    {{ ingridient }}
-                  </li>
-                {% endfor %}
-              </ul>
-            </td>
-            <td>
-              {{ dish.price }}$
-            </td>
-            <td>
-              {{ dish.description }}
-            </td>
-          <td>
-            <img alt="img" width="128" height="128" src={% static dish.get_img %}>
-          </td>
-
-            <td>
-              <ul>
-                {% for cook in dish.get_cooks %}
-                  <li>
-                    {{ cook }}
-                  </li>
-                {% empty %}
-                  <li>No one wanna cook this</li>
-                {% endfor %}
-              </ul>
-            </td>
-
-            <td>
-              <form action='' method="post" name="update">
-                {% csrf_token %}
-                <input value="{{ dish.id }}" hidden="hidden" name="id">
-                <input type="text" name="new_name">
-                <button class="btn btn-primary" type="submit" name={{ dish.id }}>update</button>
-              </form>
-            </td>
-
-            <td>
-              <form action='' method="post" name="delete">
-                {% csrf_token %}
-                <input value="{{ dish.id }}" hidden="hidden" name="id">
-                <button class="btn btn-primary" type="submit" name={{ dish.id }}>delete</button>
-              </form>
-            </td>
-          </tr>
-        {% endfor %}
-    </table>
-  {% else %}
-    <p>There is no Dish to view :(</p>
-  {% endif %}
 
 {% endblock %}

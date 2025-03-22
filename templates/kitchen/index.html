@@ -19,7 +19,7 @@
           <img alt="img" src="{% static dish.get_img %}">
         </a>
           <div class="image-description">
-            <p>{{ dish.name }}</p>
+            <p>{{ dish.name }} ${{ dish.price }}</p>
           </div>
       </div>
     {% endfor %}

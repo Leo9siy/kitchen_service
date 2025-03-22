@@ -5,10 +5,10 @@
   Login
 {% endblock %}
 {% block content %}
-  <link type="text/css" rel="stylesheet" href="{% static 'css/login.css' %}">
-  
+  <link type="text/css" rel="stylesheet" href="{% static 'css/registration/login.css' %}">
+
    <div class="wrapper">
-   
+
         <form method="post" action="{% url 'login' %}" novalidate>
           {% csrf_token %}
 
