@@ -18,11 +18,9 @@
         </form>
       </div>
       <div class="create-type">
-        {% if user.is_authenticated %}
-          <a href="{% url 'kitchen:ingredient_create' %}" class="btn btn-primary link-to-page">
-            Create Ingredient
-          </a>
-        {% endif %}
+        <a href="{% url 'kitchen:ingredient_create' %}" class="btn btn-primary link-to-page">
+          Create Ingredient
+        </a>
       </div>
     </div>
   <br>
