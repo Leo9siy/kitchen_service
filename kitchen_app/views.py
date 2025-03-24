@@ -1,40 +1,58 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
+from django.db.models import QuerySet
+from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView, UpdateView, DeleteView, ListView, DetailView
+from django.urls import reverse_lazy
+from django.views.generic import (
+    CreateView,
+    UpdateView,
+    DeleteView,
+    ListView,
+    DetailView,
+)
 
-from kitchen_app.forms import CookCreateForm, DishCreateForm, DishSearchForm, CookSearchForm, IngredientSearchForm, \
-    DishTypeSearchForm
-from kitchen_app.models import DishModel, CookModel, IngredientModel, DishTypeModel
+from kitchen_app.forms import (
+    CookCreateForm,
+    DishCreateForm,
+    DishSearchForm,
+    CookSearchForm,
+    IngredientSearchForm,
+    DishTypeSearchForm,
+)
+from kitchen_app.models import (DishModel, CookModel,
+                                IngredientModel, DishTypeModel)
 from kitchen_service.settings import LOGIN_REDIRECT_URL
 
 
-def index(request):
+def index(request: HttpRequest):
     context = {
         "dishes": DishModel.objects.all()[:3],
         "dish_count": DishModel.objects.count(),
         "cooks_count": CookModel.objects.count(),
         "ingredients_count": IngredientModel.objects.count(),
-        "dish_types_count": DishTypeModel.objects.count()
+        "dish_types_count": DishTypeModel.objects.count(),
     }
 
     return render(request, template_name="kitchen/index.html", context=context)
 
 
-def login_view(request) -> HttpResponse:
+def login_view(request: HttpRequest) -> HttpResponse:
     if request.method == "GET":
         context = {
             "username": request.session.get("username", ""),
-            "password": request.session.get("password", "")
+            "password": request.session.get("password", ""),
         }
-        return render(request, template_name="registration/login.html", context=context)
+        return render(
+            request,
+            template_name="registration/login.html",
+            context=context
+        )
     elif request.method == "POST":
 
         username = request.POST["username"]
         password = request.POST["password"]
-        user =  authenticate(username=username, password=password)
+        user = authenticate(username=username, password=password)
         if user is not None:
             if user.is_active:
                 login(request, user)
@@ -45,7 +63,11 @@ def login_view(request) -> HttpResponse:
                 return redirect(LOGIN_REDIRECT_URL)
             else:
                 return render(request, template_name="registration/login.html")
-        return render(request, template_name="registration/login.html", context={"error": "Invalid username and/or password."})
+        return render(
+            request,
+            template_name="registration/login.html",
+            context={"error": "Invalid username and/or password."},
+        )
     return render(request, template_name="registration/login.html")
 
 
@@ -55,10 +77,7 @@ class DishListView(ListView):
     context_object_name = "dish_list"
     paginate_by = 5
 
-
-    def get_context_data(
-        self, *, object_list = ..., **kwargs
-    ):
+    def get_context_data(self, *, object_list=..., **kwargs) -> dict:
         context = super(DishListView, self).get_context_data(**kwargs)
 
         if self.request.method == "GET":
@@ -70,12 +89,18 @@ class DishListView(ListView):
             )
         return context
 
-    def get_queryset(self):
-        query_set = DishModel.objects.all().select_related("dish_type").prefetch_related("ingredients")
+    def get_queryset(self) -> QuerySet:
+        query_set = (
+            DishModel.objects.all()
+            .select_related("dish_type")
+            .prefetch_related("ingredients")
+        )
         if self.request.method == "GET":
             form = DishSearchForm(self.request.GET)
             if form.is_valid():
-                return query_set.filter(name__icontains=form.cleaned_data["dish_name"])
+                return query_set.filter(
+                    name__icontains=form.cleaned_data["dish_name"]
+                )
 
         return query_set
 
@@ -114,8 +139,7 @@ class IngredientListView(ListView):
     context_object_name = "ingredient_list"
     paginate_by = 5
 
-
-    def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs) -> HttpResponseRedirect | None:
         context = request.POST.copy()
         if "pk" in context:
             ingredient = IngredientModel.objects.get(pk=context["pk"])
@@ -130,7 +154,7 @@ class IngredientListView(ListView):
 
             return redirect("kitchen_app:ingredients")
 
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet:
         query_set = IngredientModel.objects.all()
         if self.request.method == "GET":
             form = IngredientSearchForm(self.request.GET)
@@ -139,10 +163,7 @@ class IngredientListView(ListView):
                 return query_set.filter(name__icontains=name)
         return query_set
 
-
-    def get_context_data(
-        self, *, object_list = ..., **kwargs
-    ):
+    def get_context_data(self, *, object_list=..., **kwargs) -> dict:
         context = super(IngredientListView, self).get_context_data(**kwargs)
         if self.request.method == "GET":
             ingredient_name = self.request.GET.get("ingredient_name", "")
@@ -173,8 +194,7 @@ class CookListView(ListView):
     context_object_name = "cook_list"
     paginate_by = 5
 
-
-    def get_context_data(self, *, object_list = ..., **kwargs):
+    def get_context_data(self, *, object_list=..., **kwargs) -> dict:
         context = super(CookListView, self).get_context_data(**kwargs)
         if self.request.method == "GET":
             cook_name = self.request.GET.get("cook_name", "")
@@ -184,12 +204,14 @@ class CookListView(ListView):
             )
         return context
 
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet:
         query_set = CookModel.objects.all()
         if self.request.method == "GET":
             form = CookSearchForm(self.request.GET)
             if form.is_valid():
-                return query_set.filter(username__icontains=form.cleaned_data["cook_name"])
+                return query_set.filter(
+                    username__icontains=form.cleaned_data["cook_name"]
+                )
         return query_set
 
 
@@ -220,8 +242,10 @@ class DishTypeListView(ListView):
     context_object_name = "dish_type_list"
     paginate_by = 5
 
-
-    def post(self, request, *args, **kwargs):
+    def post(
+            self, request: HttpRequest,
+            *args, **kwargs
+    ) -> HttpResponseRedirect | None:
         context = request.POST.copy()
         if "pk" in context:
             dish_type = DishTypeModel.objects.get(pk=context["pk"])
@@ -236,18 +260,17 @@ class DishTypeListView(ListView):
 
             return redirect("kitchen_app:dish_types")
 
-
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet:
         query_set = DishTypeModel.objects.all()
         if self.request.method == "GET":
             form = DishTypeSearchForm(self.request.GET)
             if form.is_valid():
-                return query_set.filter(name__icontains=form.cleaned_data["type_name"])
+                return query_set.filter(
+                    name__icontains=form.cleaned_data["type_name"]
+                )
         return query_set
 
-    def get_context_data(
-        self, *, object_list = ..., **kwargs
-    ):
+    def get_context_data(self, *, object_list=..., **kwargs) -> dict:
         context = super(DishTypeListView, self).get_context_data(**kwargs)
         if self.request.method == "GET":
             dish_type_name = self.request.GET.get("type_name", "")
