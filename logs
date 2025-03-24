@@ -1,0 +1,11 @@
+[33mcommit 29e0d9ecef69269ce0768d6aa054411c46c79de4[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdevelop[m[33m)[m
+Author: Leo <leonsiypopov@gmail.com>
+Date:   Thu Mar 13 04:18:58 2025 +0200
+
+    Initial Kitchen app for Base Work
+
+[33mcommit c5a22dc03da02e1b952141d658a9b65011db3bc8[m[33m ([m[1;31moriginal/main[m[33m, [m[1;32mmain[m[33m)[m
+Author: Leo <leonsiypopov@gmail.com>
+Date:   Thu Mar 13 03:55:30 2025 +0200
+
+    Created empty project and App
