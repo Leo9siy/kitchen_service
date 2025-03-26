@@ -9,6 +9,11 @@ table {
     place-self: center;
     border-radius: 10px;
 }
+.list-dishes p {
+    padding: 20px;
+    color: white;
+    text-align: center;
+}
 .navigation {
     display: flex;
     justify-content: space-between;
@@ -38,4 +43,9 @@ img:hover {
 }
 .table th {
     font-size: 1.5rem;
+}
+table a {
+    color: white;
+    text-decoration: none;
+    padding: 15px;
 }
