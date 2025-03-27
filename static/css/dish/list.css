@@ -1,0 +1,51 @@
+table {
+    backdrop-filter: blur(20px);
+}
+.page-list {
+    margin: 20px;
+    display: block;
+    backdrop-filter: blur(10px);
+    width: 80%;
+    place-self: center;
+    border-radius: 10px;
+}
+.list-dishes p {
+    padding: 20px;
+    color: white;
+    text-align: center;
+}
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 10px;
+}
+form div {
+    display: inline-block;
+}
+input#id_dish_name {
+    padding-bottom: 8px;
+}
+.create-dish {
+    place-items: flex-end;
+    justify-content: flex-end;
+}
+img {
+    width: auto;
+    height: auto;
+    border-radius: 20px;
+}
+img:hover {
+    transform: scale(1.2);
+}
+
+.table {
+    color: white;
+}
+.table th {
+    font-size: 1.5rem;
+}
+table a {
+    color: white;
+    text-decoration: none;
+    padding: 15px;
+}

@@ -1,0 +1,44 @@
+@keyframes example {
+  from {background-color: red;content: "24"}
+  to {background-color: yellow;content: "55"}
+}
+@keyframes example2 {
+  0%   {background-color: red;}
+  25%  {background-color: yellow;}
+  50%  {background-color: blue;}
+  100% {background-color: green;}
+}
+.container3 {
+    margin-top: 40px;
+    display: grid;
+    place-items: center;
+    color: white;
+}
+p.text-sm, .mt-3 {
+    font-weight: bold;
+    color: white;
+}
+.p-3 {
+    background-color: orangered;
+    border-radius: 10%;
+}
+img {
+    border-radius: 20px;
+}
+img:hover {
+    transform: scale(1.2);
+}
+.images {
+    margin-top: 40px;
+    display: flex;
+}
+.image {
+    padding: 20px;
+
+}
+.image-description p {
+    display: inline-block;
+    font-size: 2em;
+    background-color: orangered;
+    border-radius: 10%;
+}

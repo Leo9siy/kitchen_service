@@ -1,0 +1,17 @@
+.page {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+
+}
+.form {
+    background: linear-gradient(green, purple, orangered);
+    padding: 25px;
+    border-radius: 20px;
+}
+label {
+    color: white
+}
+legend {
+    color: white
+}

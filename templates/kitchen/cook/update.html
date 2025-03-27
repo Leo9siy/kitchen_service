@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block title %}
+  Update
+{% endblock %}
+{% block content %}
+  {% load static %}
+  <link type="text/css" rel="stylesheet" href={% static 'css/cook/update.css' %}>
+  
+  <div class="page">
+     <form action='' method="post" class="form" novalidate>
+
+      {% csrf_token %}
+      {{ form|crispy }}
+        <button class="btn btn-primary button">Update</button>
+       {% if object %}
+         <a class="btn btn-secondary" href={% url 'kitchen:cooker_detail' cook.id %}>Back</a>
+       {% else %}
+         <a class="btn btn-secondary" href={% url 'kitchen:cooks' %}>Back</a>
+       {% endif %}
+    </form>
+  </div>
+
+
+{% endblock %}

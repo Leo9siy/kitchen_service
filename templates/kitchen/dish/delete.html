@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}
+  Delete
+{% endblock %}
+{% block content %}
+  {% load static %}
+  <link type="text/css" rel="stylesheet" href="{% static 'css/dish/delete.css' %}">
+  
+  <div class="page">
+    <div class="wrapper">
+      <h1>Delete "{{ dish.name }}"?</h1>
+      <form action="" method="post" class="form">
+        {% csrf_token %}
+    
+        <input type="submit" value="Yes" class="btn btn-danger">
+      </form>
+      <a class="btn btn-primary" href={% url 'kitchen:dish_detail' dish.id %}>Back</a>
+    </div>
+  </div>
+
+{% endblock %}

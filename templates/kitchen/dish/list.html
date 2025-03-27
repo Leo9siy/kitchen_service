@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_filters %}
+
+{% block title %}
+  Dishes
+{% endblock %}
+
+{% block content %}
+  <link rel="stylesheet" type="text/css" href={% static 'css/dish/list.css' %}>
+
+  <div class="page-list">
+    <div class="navigation">
+      <div class="search-dish">
+        <form action="" method="get" class="search-form" novalidate>
+          <input type="submit" value="🔍" class="btn btn-primary">
+          {{ search }}
+        </form>
+      </div>
+      <div class="create-dish">
+        <a href="{% url 'kitchen:dish_create' %}" class="btn btn-primary link-to-page">
+          Create dish
+        </a>
+      </div>
+    </div>
+  <br>
+    <div class="dishes">
+      <div class="list-dishes">
+        {% if dish_list %}
+          <table class="table">
+            <tr>
+              <th>Dish</th>
+              <th>Type</th>
+              <th>Ingridients</th>
+              <th>Price</th>
+              <th>Description</th>
+              <th>Cookers</th>
+            </tr>
+            <tr>
+              {% for dish in dish_list %}
+                <tr>
+                  <td>
+                    <a href={% url 'kitchen:dish_detail' dish.id %}>
+                      <img alt="{{ dish.name }}" src={% static dish.get_img %}>
+                    </a>
+                  </td>
+                  <td>{{ dish.dish_type.name }}</td>
+                  <td>
+                    <ul>
+                      {% for ingridient in dish.get_ingredients %}
+                        <li>
+                          {{ ingridient }}
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </td>
+                  <td>
+                    ${{ dish.price }}
+                  </td>
+                  <td>
+                    {{ dish.description }}
+                  </td>
+
+                  <td>
+                    <ul>
+                      {% for cook in dish.get_cooks %}
+                        <li>
+                          {{ cook }}
+                        </li>
+                      {% empty %}
+                        <li>No one wanna cook this</li>
+                      {% endfor %}
+                    </ul>
+                  </td>
+                </tr>
+              {% endfor %}
+          </table>
+        {% else %}
+          <p>There is no Dish to view :(</p>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+table {
+    backdrop-filter: blur(20px);
+}
+.page-list {
+    max-width: 30%;
+}
+.list-dishes p {
+    padding: 20px;
+    color: white;
+}
+.page-list {
+    margin: 20px;
+    display: block;
+    backdrop-filter: blur(10px);
+    width: 80%;
+    place-self: center;
+    border-radius: 10px;
+}
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 10px;
+}
+form div {
+    display: inline-block;
+}
+.create-cook {
+    place-items: flex-end;
+    justify-content: flex-end;
+}
+table a {
+    color: white;
+    text-decoration: none;
+    padding: 15px;
+}
+table a:hover {
+    text-decoration: none;
+    color: orangered;
+}
+
+.table {
+    color: white;
+}
+.table th {
+    font-size: 1.5rem;
+}

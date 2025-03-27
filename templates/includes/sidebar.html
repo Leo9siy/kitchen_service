@@ -1,0 +1,32 @@
+{% load static %}
+
+<link rel="stylesheet" href={% static 'css/sidebar.css' %}>
+
+<div class="sidebar-container">
+  <div class="flex">
+    <div class="flex-start">
+      <a href={% url 'kitchen:index' %}>Home</a>
+      <a href={% url 'kitchen:dishes' %}>Dishes</a>
+      <a href={% url 'kitchen:dish_types' %}>Dishes types</a>
+      <a href={% url 'kitchen:ingredients' %}>Ingridients</a>
+      <a href={% url 'kitchen:cookers' %}>Cookers</a>
+    </div>
+
+    <div class="flex-end">
+      {% if user.is_authenticated %}
+        <p>{{ user.username }}</p>
+
+        <form id="logout-form" method="post" action="{% url 'admin:logout' %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-secondary">Logout</button>
+        </form>
+
+      {% else %}
+        <a href={% url 'sign-up' %}>Register</a>
+        <a href={% url 'login' %}>Login</a>
+      {% endif %}
+
+    </div>
+  </div>
+
+</div>
