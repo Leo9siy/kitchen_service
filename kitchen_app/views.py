@@ -22,7 +22,7 @@ from kitchen_app.forms import (
 )
 from kitchen_app.models import (DishModel, CookModel,
                                 IngredientModel, DishTypeModel)
-from kitchen_service.settings import LOGIN_REDIRECT_URL
+from kitchen_service.settings.base import LOGIN_REDIRECT_URL
 
 
 def index(request: HttpRequest):

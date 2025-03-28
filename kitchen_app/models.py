@@ -47,12 +47,14 @@ class DishModel(models.Model):
         return self.name
 
     def clean(self) -> None:
+        cleaned_data = super().clean()
+        print(self.cleaned_data)
         if self.ingredients.count() == 0:
             raise ValidationError(
                 "ingredients must have at least one ingredient"
             )
         if self.cooks.count() == 0:
-            raise ValidationError("cooks must have at least one cook")
+            raise ValidationError("dish must have at least one cook")
         if self.price <= 0:
             raise ValidationError("price must be greater than zero")
 
