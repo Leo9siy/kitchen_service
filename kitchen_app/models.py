@@ -7,6 +7,9 @@ from django.db.models import QuerySet
 class DishTypeModel(models.Model):
     name = models.CharField(max_length=100)
 
+    class Meta:
+        ordering = ['name']
+
     def __str__(self) -> str:
         return self.name
 
@@ -18,21 +21,28 @@ class CookModel(AbstractUser):
     class Meta:
         ordering = ["username"]
 
+    def clean(self):
+        if not(100 > self.year_of_experience >= 0):
+            raise ValidationError("Please enter a valid year of experience")
+
     def __str__(self) -> str:
         return self.username
 
 
 class IngredientModel(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=32)
+
+    class Meta:
+        ordering = ["name"]
 
     def __str__(self) -> str:
         return self.name
 
 
 class DishModel(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField()
-    price = models.DecimalField(decimal_places=2, max_digits=10)
+    name = models.CharField(max_length=32, unique=True, null=False)
+    description = models.TextField(max_length=200, blank=True, null=True)
+    price = models.DecimalField(default=0, decimal_places=2, max_digits=10)
 
     dish_type = models.ForeignKey(DishTypeModel, on_delete=models.CASCADE)
     ingredients = models.ManyToManyField(
@@ -43,18 +53,14 @@ class DishModel(models.Model):
     class Meta:
         ordering = ["price"]
 
+    def clean(self):
+        if self.price is None or not(10_000 > self.price > 0):
+            raise ValidationError("Please enter a valid price")
+        if self.dish_type is None:
+            raise ValidationError("Please enter a valid dish type")
+
     def __str__(self) -> str:
         return self.name
-
-    def clean(self) -> None:
-        if self.ingredients.count() == 0:
-            raise ValidationError(
-                "ingredients must have at least one ingredient"
-            )
-        if self.cooks.count() == 0:
-            raise ValidationError("dish must have at least one cook")
-        if self.price <= 0:
-            raise ValidationError("price must be greater than zero")
 
     def get_ingredients(self) -> QuerySet:
         return self.ingredients.all()
