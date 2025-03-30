@@ -1,18 +1,22 @@
 {% extends "base.html" %}
 {% load crispy_forms_filters %}
-{% block title %}
-  SignUp
-{% endblock %}
+{% block title %}SignUp{% endblock %}
+{% block sidebar %}{% endblock %}
 {% block content %}
-    {% load static %}
-    <link type="text/css" rel="stylesheet" href={% static 'css/registration/register.css' %}>
+  {% load static %}
+  <link type="text/css" rel="stylesheet" href={% static 'css/registration/login.css' %}>
+  <link type="text/css" rel="stylesheet" href={% static 'css/registration/register.css' %}>
+
 
   <div class="wrapper">
     <form action="{% url 'sign-up' %}" method="post" novalidate>
       <h1>Register</h1>
         {% csrf_token %}
         {{ form|crispy }}
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn">Submit</button>
+      <div class="register-link">
+          <p>Already have account? <a href={% url 'login' %}>Login</a></p>
+      </div>
     </form>
   </div>
 

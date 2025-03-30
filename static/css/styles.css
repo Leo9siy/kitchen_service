@@ -1,5 +1,7 @@
+* {
+    margin: 0;
+    padding: 0;
+}
 body {
-    background-image: url('https://img.freepik.com/free-photo/front-view-professional-kitchen_23-2148763122.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
+    font-family: "Winky Sans", sans-serif;
 }

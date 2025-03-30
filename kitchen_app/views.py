@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import QuerySet
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
@@ -39,19 +39,14 @@ def index(request: HttpRequest):
 
 def login_view(request: HttpRequest) -> HttpResponse:
     if request.method == "GET":
-        context = {
-            "username": request.session.get("username", ""),
-            "password": request.session.get("password", ""),
-        }
         return render(
             request,
             template_name="registration/login.html",
-            context=context
         )
     elif request.method == "POST":
-
         username = request.POST["username"]
         password = request.POST["password"]
+
         user = authenticate(username=username, password=password)
         if user is not None:
             if user.is_active:
@@ -66,9 +61,19 @@ def login_view(request: HttpRequest) -> HttpResponse:
         return render(
             request,
             template_name="registration/login.html",
-            context={"error": "Invalid username and/or password."},
+            context={
+                "errors": "Invalid username and/or password.",
+                "username": request.session.get("username", "")
+            },
         )
     return render(request, template_name="registration/login.html")
+
+
+def logout_view(request: HttpRequest) -> HttpResponse:
+    if request.method == "GET":
+        if request.user.is_authenticated:
+            logout(request)
+    return redirect("kitchen_app:index")
 
 
 class DishListView(ListView):
@@ -184,7 +189,7 @@ class IngredientCreateView(LoginRequiredMixin, CreateView):
 class CookCreateView(CreateView):
     model = CookModel
     template_name = "registration/sign_up.html"
-    success_url = reverse_lazy("index")
+    success_url = LOGIN_REDIRECT_URL
     form_class = CookCreateForm
 
 

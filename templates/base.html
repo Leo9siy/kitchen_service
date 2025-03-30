@@ -12,23 +12,38 @@
   <link type="text/css" rel="stylesheet" href="{% static 'css/styles.css' %}">
   <link rel="icon" type="image-x-icon" href="{% static 'img/icon.png' %}">
 
-    <title>
-      {% block title %}Title{% endblock %}
-    </title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Winky+Sans:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
+  <title>
+    {% block title %}
+      Title
+    {% endblock %}
+  </title>
 
 </head>
 
   <body>
+    <header>
+      {% block sidebar %}
+        {% include "includes/sidebar.html" %}
+      {% endblock %}
+    </header>
 
-    {% block sidebar %}
-      {% include "includes/sidebar.html" %}
-    {% endblock %}
-
+  <main>
     {% block content %}{% endblock %}
 
     {% block pagination %}
       {% include "includes/pagination.html" %}
     {% endblock %}
+  </main>
+
+  <footer>
+    {% block footer %}
+      {% include "includes/footer.html" %}
+    {% endblock %}
+  </footer>
 
   </body>
 

@@ -1,9 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
-{% load crispy_forms_filters %}
-{% block title %}
-  Login
-{% endblock %}
+{% block title %}Login{% endblock %}
+{% block sidebar %}{% endblock %}
+
 {% block content %}
   <link type="text/css" rel="stylesheet" href="{% static 'css/registration/login.css' %}">
 
@@ -12,7 +11,11 @@
         <form method="post" action="{% url 'login' %}" novalidate>
           {% csrf_token %}
 
+
             <h1>Login</h1>
+          {% if errors %}
+            {{ errors }}
+          {% endif %}
             <div class="input-box">
                 <input value="{{ username }}" name="username" type="text" placeholder="Username" required>
                 <i class="bx bxs-user"></i>
@@ -22,7 +25,9 @@
                 <i class="bx bxs-lock-alt"></i>
             </div>
             <div class="remember-forgot">
-                <label><input type="checkbox" name="remember">Remember me</label>
+                <label>
+                  <input type="checkbox" name="remember">Remember me
+                </label>
                 <!--<a href="#">Forgot password</a>-->
             </div>
             <button type="submit" class="btn">Login</button>

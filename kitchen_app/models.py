@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -69,4 +71,6 @@ class DishModel(models.Model):
         return self.cooks.all()
 
     def get_img(self) -> str:
-        return "img/" + self.name.lower() + ".jpg"
+        if Path("img/" + self.name.lower() + ".jpg").is_file():
+            return "img/" + self.name.lower() + ".jpg"
+        return "img/default.jpg"

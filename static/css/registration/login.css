@@ -83,6 +83,12 @@ body{
     color: #333;
     font-weight: 600;
 }
+.btn:hover {
+    transform: translateY(-2px);
+}
+.btn:active {
+    transform: translateY(2px);
+}
 .wrapper .register-link{
     font-size: 14px;
     text-align: center;

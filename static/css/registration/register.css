@@ -1,27 +1,3 @@
-body{
-    background-image: linear-gradient(#e66465, #9198e5);
-    display: block;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-size: cover;
-    background-position: center;
-}
-.wrapper{
-    display: flex;
-    place-items: center;
-    place-self: center;
-    place-content: center;
-    margin: 20px auto;
-    width: 420px;
-    background: transparent;
-    border: 2px solid rgba(68,24,127,.2);
-    backdrop-filter: blur(1.5rem);
-    box-shadow: 0 0 10px rgba(0,0,0,.2);
-    color: #fff;
-    border-radius: 10px;
-    padding: 30px 40px;
-}
 .form-control:focus {
     background: transparent;
     border: 2px solid rgba(68,24,127,.2);
@@ -33,18 +9,14 @@ body{
     text-align: center;
     margin-bottom: 20px;
 }
-.form-control {
-    color: white;
-}
-input{
-    position: relative;
-    width: 100%;
+.mb-3 {
     height: 50px;
-    margin: 20px 0;
-    background-color: white;
+    place-items: center;
 }
-.wrapper input{
-    margin: 5px 0;
+.mb-3 input{
+    position: relative;
+    display: block;
+    margin: 20px;
     width: 100%;
     height: 100%;
     background: transparent;
@@ -53,34 +25,20 @@ input{
     border-radius: 40px;
     font-size: 16px;
     color: #fff;
-    padding: 20px 45px 20px 20px;
+    padding: 20px 25px 20px 20px;
 }
-.wrapper input input::placeholder{
-    color: #fff;
+.mb-3 input:past {
+    background: transparent;
 }
-.wrapper .btn{
-    width: 100%;
-    height: 45px;
-    background: #fff;
-    border: none;
-    outline: none;
-    border-radius: 40px;
-    box-shadow: 0 0 10px rgba(0,0,0,.1);
-    cursor: pointer;
-    font-size: 16px;
-    color: #333;
-    font-weight: 600;
-}
-
-#id_password1_helptext{
-    display: none;
-}
-.invalid-feedback {
+.mb-3 input::placeholder {
     color: white;
+}
+.is-invalid~.invalid-feedback, .is-invalid~.invalid-tooltip, .was-validated :invalid~.invalid-feedback, .was-validated :invalid~.invalid-tooltip {
+    display: none;
 }
 .form-text {
     display: none;
 }
-input:active {
-    background: transparent;
+.wrapper form .mb-3 input {
+    color: white;
 }
