@@ -28,8 +28,11 @@ form div input{
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
 }
-.dish-list p {
+.dish-list .list p {
     text-align: left;
+}
+.dish-list p {
+    text-align: center;
 }
 
 .dish {
