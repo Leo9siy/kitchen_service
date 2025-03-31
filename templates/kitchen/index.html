@@ -5,71 +5,50 @@
 {% block content %}
   <link rel="stylesheet" href={% static 'css/home.css' %}>
 
-<div class="container3">
-  <h1>
-    Welcome to Kitchen!
-  </h1>
-  <h4>
-    Here we have many Dishes
-  </h4>
-  <div class="images">
-    {% for dish in dishes %}
-      <div class="image">
-        <a href={% url 'kitchen:dish_detail' dish.id %}>
-          <img alt="img" src="{% static dish.get_img %}">
-        </a>
-          <div class="image-description">
-            <p>{{ dish.name }} ${{ dish.price }}</p>
-          </div>
-      </div>
-    {% endfor %}
+<section class="hero">
+  <div class="hero-content">
+    <h1>Lorem ipsum dolor sit amet.</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+    Accusamus consequatur deserunt dolore dolores, eum hic illum ipsa iure,
+    labore magni nam neque qui quisquam reiciendis saepe ullam unde vero vitae.
+    </p>
   </div>
-
-</div>
-
-
-<section class="pt-3 pb-4" id="count-stats">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-9 z-index-2 border-radius-xl mt-n10 mx-auto py-3 blur shadow-blur">
-        <div class="row">
-          <div class="col-md-3 position-relative">
-            <div class="p-3 text-center">
-              <h1 class="text-gradient text-primary">
-                <span id="state1">{{ dish_count }}</span>+
-              </h1>
-              <h5 class="mt-3">Dishes</h5>
-              <p class="text-sm">From very simple to cook to delicates</p>
-            </div>
-            <hr class="vertical dark">
-          </div>
-          <div class="col-md-3 position-relative">
-            <div class="p-3 text-center">
-              <h1 class="text-gradient text-primary" id="state2">{{ cooks_count }}+</h1>
-              <h4 class="mt-3">Cooks</h4>
-              <p class="text-sm">Who exactly know how to cook very delicious food</p>
-            </div>
-            <hr class="vertical dark">
-          </div>
-          <div class="col-md-3">
-            <div class="p-3 text-center">
-              <h1 class="text-gradient text-primary" id="state3">{{ ingredients_count }}+</h1>
-              <h5 class="mt-3">Ingredients</h5>
-              <p class="text-sm">So you can choose which tasty you will have today</p>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="p-3 text-center">
-              <h1 class="text-gradient text-primary" id="state3">{{ dish_types_count }}+</h1>
-              <h5 class="mt-3">Dish types</h5>
-              <p class="text-sm">For all people with different prefered</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="hero-image">
+    <img alt="Own kitchen" height="600px" src={% static 'img/kitchen.jpg' %}>
   </div>
 </section>
 
+<section class="menu">
+  <h2>Our Menu</h2>
 
+  <div class="menu-grid">
+    {% for dish in dishes %}
+
+      <div class="menu-card">
+        <a href={% url 'kitchen_app:dish_detail' dish.id %}>
+          <img alt="menu" height="200px" src={% static dish.get_img %}>
+        </a>
+        <div class="menu-card-content">
+          <h3>{{ dish.name }}</h3>
+          <p>
+            {% if dish.description %}
+              {{ dish.description }}
+            {% else %}
+              No description.
+            {% endif %}
+          </p>
+          <div class="price">
+            ${{ dish.price }}
+          </div>
+        </div>
+      </div>
+
+    {% endfor %}
+  </div>
+</section>
+
+{% endblock %}
+
+{% block footer %}
+  {% include "includes/footer.html" %}
 {% endblock %}

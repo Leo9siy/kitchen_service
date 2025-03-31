@@ -31,20 +31,17 @@
       {% endblock %}
     </header>
 
-  <main>
-    {% block content %}{% endblock %}
+    <main>
+      {% block content %}{% endblock %}
 
-    {% block pagination %}
-      {% include "includes/pagination.html" %}
-    {% endblock %}
-  </main>
+      {% block pagination %}
+        {% include "includes/pagination.html" %}
+      {% endblock %}
+    </main>
 
-  <footer>
-    {% block footer %}
-      {% include "includes/footer.html" %}
-    {% endblock %}
-  </footer>
+    <footer>
+      {% block footer %}{% endblock %}
+    </footer>
 
   </body>
-
 </html>

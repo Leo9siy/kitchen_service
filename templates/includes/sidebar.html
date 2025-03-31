@@ -2,29 +2,22 @@
 
 <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
 
-<div class="nav-wrap">
-  <div class="nav-flex">
-    <div class="navigation">
-      <a href={% url 'kitchen:index' %}>
-        <img alt="img" src={% static 'img/icon.png' %}>
-      </a>
-      <a href={% url 'kitchen:dishes' %}>Dishes</a>
-      <a href={% url 'kitchen:dish_types' %}>Dishes types</a>
-      <a href={% url 'kitchen:ingredients' %}>Ingridients</a>
-      <a href={% url 'kitchen:cookers' %}>Cookers</a>
-    </div>
+<div class="logo"><a href="{% url 'kitchen_app:index' %}">Kitchen service</a></div>
+<nav class="nav-links">
+  <a href={% url 'kitchen:dishes' %}>Dishes</a>
+  <a href={% url 'kitchen:dish_types' %}>Types</a>
+  <a href={% url 'kitchen:ingredients' %}>Ingridients</a>
+  <a href={% url 'kitchen:cookers' %}>Cookers</a>
+</nav>
 
-    <div class="nav-profile">
-      {% if user.is_authenticated %}
-        <span>{{ user.username }}</span>
-        <a class="btn" href="{% url 'logout' %}">Logout</a>
+<div class="nav-profile">
+  {% if user.is_authenticated %}
+    <p>{{ user.username }}</p>
+    <a class="nav-btn" href="{% url 'logout' %}">Logout</a>
 
-      {% else %}
-        <a href={% url 'sign-up' %}>Register</a>
-        <a href={% url 'login' %}>Login</a>
-      {% endif %}
-
-    </div>
-  </div>
+  {% else %}
+    <a class="nav-btn" href={% url 'sign-up' %}>Register</a>
+    <a class="nav-btn" href={% url 'login' %}>Login</a>
+  {% endif %}
 
 </div>

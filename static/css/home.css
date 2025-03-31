@@ -1,44 +1,132 @@
-@keyframes example {
-  from {background-color: red;content: "24"}
-  to {background-color: yellow;content: "55"}
-}
-@keyframes example2 {
-  0%   {background-color: red;}
-  25%  {background-color: yellow;}
-  50%  {background-color: blue;}
-  100% {background-color: green;}
-}
-.container3 {
-    margin-top: 40px;
+.hero {
     display: grid;
-    place-items: center;
-    color: white;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+    padding: 8rem 5% 4rem;
+    align-items: center;
+    gap: 4rem;
 }
-p.text-sm, .mt-3 {
-    font-weight: bold;
-    color: white;
+.hero-content {
+    max-width: 600px;
 }
-.p-3 {
-    background-color: orangered;
+.hero h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+}
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+.hero-image {
+    position: relative;
+}
+.hero-image img {
+    width: 100%;
     border-radius: 10%;
+    object-fit: cover;
+    transition: transform 0.3s;
 }
-img {
-    border-radius: 20px;
+.hero-image:hover img {
+    transform: scale(1.05);
 }
-img:hover {
-    transform: scale(1.2);
+/* Menu */
+.menu {
+    padding: 6rem 5%;
 }
-.images {
-    margin-top: 40px;
-    display: flex;
+.menu h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
 }
-.image {
-    padding: 20px;
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+.menu-card {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.menu-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2)
+}
+.menu-card img {
+    width: 100%;
+    object-fit: cover;
+}
 
+.menu-card-content {
+    padding: 1.5rem;
 }
-.image-description p {
-    display: inline-block;
-    font-size: 2em;
-    background-color: orangered;
-    border-radius: 10%;
+.menu-card h3{
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+.menu-card p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.menu-card .price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #e66465;
+}
+
+/* footer */
+footer {
+    background-color: darkslateblue;
+    color: white;
+    padding: 4rem 5%;
+    text-align: center;
+}
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+    border-bottom: 1px solid black;
+    padding-bottom: 3rem;
+}
+.footer-col h3 {
+    margin-bottom: 1.5rem;
+}
+.footer-col ul {
+    list-style: none;
+}
+.footer-col li {
+    padding-bottom: 0.8rem;
+}
+.footer-col a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+.footer-col a:hover {
+    color: greenyellow;
+}
+.copyright {
+    margin-top: 2rem;
+    opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+    .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding-bottom: 6rem;
+    }
+    .hero-content {
+        text-align: center;
+        flex-wrap: wrap;
+    }
+    .hero-image {
+        order: -1;
+    }
+    .nav-links {
+        display: none;
+    }
 }

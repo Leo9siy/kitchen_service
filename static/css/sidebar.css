@@ -1,30 +1,58 @@
-.nav-wrap{
-    display: block;
-    position: sticky;
+header{
+    position: fixed;
     top: 0;
-    z-index: 2;
-    padding: 0 30px;
-    backdrop-filter: blur(45px);
-    background: transparent;
-    height: 100%;
-}
-.nav-wrap img {
-    height: 84px;
-}
-.nav-flex {
+    width: 100%;
     display: flex;
+    z-index: 1000;
+    padding: 1.5rem 5%;
+    backdrop-filter: blur(10px);
+    background: coral;
     justify-content: space-between;
-    place-items: center;
+    align-items: center;
 }
-.nav-wrap .nav-flex a {
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+.nav-profile {
+    display: flex;
+    gap: 1rem;
+    line-height: 1em;
+}
+.nav-btn {
+    color: white;
+    padding: 0.5rem 2rem;
+    background-color: gray;
+    border-radius: 30px;
+    border: none;
+    align-self: center;
+    transition: color 0.3s;
+}
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+.nav-links a, .logo a {
     text-decoration: none;
-    color: dimgray;
-    padding: 25px;
+    color: black;
+    font-weight: 500;
+    padding: 1rem;
+    transition: color 0.3s;
 }
-.nav-wrap .nav-flex a:hover {
+.nav-profile p {
+    font-size: 2rem;
+}
+.nav-links a:hover,
+.nav-profile a:hover,
+.logo a:hover{
     color: greenyellow;
-    text-decoration: underline;
+    text-decoration: none;
+    transform: translateY(-2px);
 }
-.nav-profile span {
-    font-size: 1.5em;
+.nav-links a:active,
+.nav-profile a:active,
+.logo a:active{
+    color: greenyellow;
+    text-decoration: none;
+    transform: translateY(2px);
 }
