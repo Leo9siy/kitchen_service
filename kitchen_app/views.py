@@ -193,7 +193,7 @@ class CookListView(ListView):
     model = CookModel
     template_name = "kitchen/cook/list.html"
     context_object_name = "cook_list"
-    paginate_by = 5
+    paginate_by = 10
 
     def get_context_data(self, *, object_list=..., **kwargs) -> dict:
         context = super(CookListView, self).get_context_data(**kwargs)

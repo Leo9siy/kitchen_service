@@ -4,6 +4,9 @@ from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import QuerySet
+from django.templatetags import static
+
+from kitchen_service.settings.base import STATIC_URL
 
 
 class DishTypeModel(models.Model):
@@ -71,6 +74,6 @@ class DishModel(models.Model):
         return self.cooks.all()
 
     def get_img(self) -> str:
-        if Path("img/" + self.name.lower() + ".jpg").is_file():
+        if Path(STATIC_URL + "img/" + self.name.lower() + ".jpg").exists():
             return "img/" + self.name.lower() + ".jpg"
         return "img/default.jpg"
