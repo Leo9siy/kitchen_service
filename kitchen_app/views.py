@@ -233,7 +233,7 @@ class CookUpdateView(LoginRequiredMixin, UpdateView):
 class CookDeleteView(LoginRequiredMixin, DeleteView):
     model = CookModel
     template_name = "kitchen/cook/delete.html"
-    success_url = reverse_lazy("kitchen_app:cooks")
+    success_url = reverse_lazy("kitchen_app:cookers")
     context_object_name = "cook"
 
 
