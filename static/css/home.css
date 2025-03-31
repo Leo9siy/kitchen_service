@@ -44,6 +44,9 @@
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
 }
+.menu-grid > p {
+    text-align: center;
+}
 .menu-card {
     border-radius: 15px;
     overflow: hidden;
