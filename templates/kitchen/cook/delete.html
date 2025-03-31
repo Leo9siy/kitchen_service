@@ -4,11 +4,11 @@
 {% endblock %}
 {% block content %}
   {% load static %}
-  <link type="text/css" rel="stylesheet" href="{% static 'css/cook/delete.css' %}">
+  <link type="text/css" rel="stylesheet" href="{% static 'css/dish/delete.css' %}">
   
   <div class="page">
-    <div class="wrapper">
-      <h1>Delete "{{ object }}"?</h1>
+    <h1>Delete "{{ cook.username }}"?</h1>
+    <div class="nav">
       <form action="" method="post" class="form">
         {% csrf_token %}
     

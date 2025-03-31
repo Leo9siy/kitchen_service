@@ -7,46 +7,41 @@
 {% endblock %}
 
 {% block content %}
+  <link rel="stylesheet" type="text/css" href={% static 'css/dish_type/list.css' %}>
   <link rel="stylesheet" type="text/css" href={% static 'css/cook/list.css' %}>
 
-  <div class="page-list">
-    <div class="navigation">
-      <div class="search-dish">
-        <form action="" method="get" class="search-form" novalidate>
-          <input type="submit" value="🔍" class="btn btn-primary">
-          {{ search }}
-        </form>
-      </div>
+  <section class="page">
+    <h1>Own Cookers</h1>
+    <div class="nav">
+      <form action="" method="get" class="search-form" novalidate>
+        <input type="submit" value="🔍" class="btn btn-primary">
+        {{ search }}
+      </form>
     </div>
-  <br>
-    <div class="dishes">
-      <div class="list-dishes">
-        {% if cook_list %}
-          <table class="table">
+    {% if cook_list %}
+      <table class="table">
+        <tr>
+          <th>Username</th>
+          <th>Experience in years</th>
+        </tr>
+        <tr>
+          {% for cook in cook_list %}
             <tr>
-              <th>Username</th>
-              <th>Experience in years</th>
+              <td>
+                <a href={% url 'kitchen:cooker_detail' cook.id %}>
+                  {{ cook.username }}
+                </a>
+              </td>
+              <td>
+                {{ cook.year_of_experience }}
+              </td>
             </tr>
-            <tr>
-              {% for cook in cook_list %}
-                <tr>
-                  <td>
-                    <a href={% url 'kitchen:cooker_detail' cook.id %}>
-                      {{ cook.username }}
-                    </a>
-                  </td>
-                  <td>
-                    {{ cook.year_of_experience }}
-                  </td>
-                </tr>
-              {% endfor %}
-          </table>
-        {% else %}
-          <p>There is no Cooker to view :(</p>
-        {% endif %}
-      </div>
-    </div>
+          {% endfor %}
+      </table>
+    {% else %}
+      <p>There is no Cooker to view :(</p>
+    {% endif %}
 
-  </div>
+  </section>
 
 {% endblock %}

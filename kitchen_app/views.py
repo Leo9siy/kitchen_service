@@ -27,11 +27,7 @@ from kitchen_service.settings.base import LOGIN_REDIRECT_URL
 
 def index(request: HttpRequest):
     context = {
-        "dishes": DishModel.objects.all()[:3],
-        "dish_count": DishModel.objects.count(),
-        "cooks_count": CookModel.objects.count(),
-        "ingredients_count": IngredientModel.objects.count(),
-        "dish_types_count": DishTypeModel.objects.count(),
+        "dishes": DishModel.objects.all(),
     }
 
     return render(request, template_name="kitchen/index.html", context=context)
@@ -80,7 +76,7 @@ class DishListView(ListView):
     model = DishModel
     template_name = "kitchen/dish/list.html"
     context_object_name = "dish_list"
-    paginate_by = 5
+    paginate_by = 10
 
     def get_context_data(self, *, object_list=..., **kwargs) -> dict:
         context = super(DishListView, self).get_context_data(**kwargs)
@@ -110,7 +106,7 @@ class DishListView(ListView):
         return query_set
 
 
-class DishDetailView(DetailView):
+class DishDetailView(LoginRequiredMixin, DetailView):
     model = DishModel
     template_name = "kitchen/dish/detail.html"
     fields = "__all__"
@@ -245,7 +241,7 @@ class DishTypeListView(ListView):
     model = DishTypeModel
     template_name = "kitchen/dish_type/list.html"
     context_object_name = "dish_type_list"
-    paginate_by = 5
+    paginate_by = 10
 
     def post(
             self, request: HttpRequest,

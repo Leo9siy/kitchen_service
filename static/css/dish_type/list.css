@@ -1,38 +1,28 @@
-table {
-    backdrop-filter: blur(20px);
-}
-.page-list {
-    max-width: 50%;
-}
-.list-dish-type p {
-    padding: 20px;
-    color: white;
+.page {
     text-align: center;
+    padding: 2rem;
 }
-.page-list {
-    margin: 20px;
-    display: block;
-    backdrop-filter: blur(10px);
-    width: 80%;
-    place-self: center;
-    border-radius: 10px;
-}
-.navigation {
+.page .nav {
     display: flex;
-    justify-content: space-between;
-    padding: 10px 10px;
+    justify-content: center;
+    gap: 2rem;
+    padding: 1rem;
 }
-form div {
-    display: inline-block;
+form {
+    display: flex;
+    gap: 0.5rem;
 }
-.create-dish-type {
-    place-items: flex-end;
-    justify-content: flex-end;
+form div input {
+    padding: 0.4rem;
 }
 .table {
-    color: white;
-    text-align: center;
+    padding: 2rem;
+    display: grid;
+    justify-content: center;
+    gap: 1rem;
 }
-.table th {
-    font-size: 1.5rem;
+.table tbody {
+    border: 2px solid white;
+    border-radius: 5%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }

@@ -1,5 +1,5 @@
 header{
-    position: fixed;
+    position: relative;
     top: 0;
     width: 100%;
     display: flex;
@@ -55,4 +55,10 @@ header{
     color: greenyellow;
     text-decoration: none;
     transform: translateY(2px);
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
 }

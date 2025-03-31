@@ -2,7 +2,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     min-height: 100vh;
-    padding: 8rem 5% 4rem;
+    padding: 2rem 5% 4rem;
     align-items: center;
     gap: 4rem;
 }
@@ -125,8 +125,5 @@ footer {
     }
     .hero-image {
         order: -1;
-    }
-    .nav-links {
-        display: none;
     }
 }

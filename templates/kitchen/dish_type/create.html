@@ -5,15 +5,16 @@
 {% endblock %}
 {% block content %}
   {% load static %}
-  <link type="text/css" rel="stylesheet" href={% static 'css/dish/create.css' %}>
+  <link type="text/css" rel="stylesheet" href={% static 'css/dish_type/create.css' %}>
   
   <div class="page">
+    <h1>Create Dish Type</h1>
      <form action='' method="post" class="form" novalidate>
 
       {% csrf_token %}
       {{ form|crispy }}
-      <button class="btn btn-primary button">{{ object|yesno:"Update,Create" }}</button>
-         <a class="btn btn-secondary" href={% url 'kitchen:dish_types' %}>Back</a>
+      <button class="btn btn-primary button">Submit</button>
+      <a class="btn btn-secondary" href={% url 'kitchen:dish_types' %}>Back</a>
     </form>
   </div>
 

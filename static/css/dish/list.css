@@ -1,51 +1,67 @@
-table {
-    backdrop-filter: blur(20px);
+.menu {
+    padding: 2rem;
 }
-.page-list {
-    margin: 20px;
-    display: block;
-    backdrop-filter: blur(10px);
-    width: 80%;
-    place-self: center;
-    border-radius: 10px;
-}
-.list-dishes p {
-    padding: 20px;
-    color: white;
+.menu h1 {
+    padding-bottom: 2rem;
     text-align: center;
 }
-.navigation {
+.nav {
     display: flex;
-    justify-content: space-between;
-    padding: 10px 10px;
+    justify-content: center;
+    gap: 2rem
 }
-form div {
-    display: inline-block;
-}
-input#id_dish_name {
-    padding-bottom: 8px;
-}
-.create-dish {
-    place-items: flex-end;
-    justify-content: flex-end;
-}
-img {
-    width: auto;
-    height: auto;
-    border-radius: 20px;
-}
-img:hover {
-    transform: scale(1.2);
+.nav a {
+    align-self: center;
 }
 
-.table {
-    color: white;
+/* form */
+form {
+    display: flex;
 }
-.table th {
-    font-size: 1.5rem;
+form div input{
+    padding: 0.4rem;
 }
-table a {
-    color: white;
-    text-decoration: none;
-    padding: 15px;
+
+.dish-list{
+    padding: 4rem 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
 }
+.dish-list p {
+    text-align: left;
+}
+
+.dish {
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 5%;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.dish:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2)
+}
+.dish a img {
+    object-fit: cover;
+    width: 100%;
+    border-radius: 20px;
+}
+.dish a img {
+    border-radius: 20px;
+}
+.dish-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    padding: 0.4rem 2rem;
+}
+.dish-info ul {
+    list-style: none;
+}
+
+.price {
+    color: orangered;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
