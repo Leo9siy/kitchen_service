@@ -22,8 +22,8 @@ python manage.py sunserver #Starts Django Project
 ## Features
 
 * Different permission for Cooker and Admin
-* Access to make a order
-* Changing password but Email
+* Access to make an order
+* Changing password over Email
 
 ## Demo
 
