@@ -12,7 +12,33 @@
     <form action="{% url 'sign-up' %}" method="post" novalidate>
       <h1>Register</h1>
         {% csrf_token %}
-        {{ form|crispy }}
+          {{ errors.username }}
+          <div class="input-box">
+
+              <input value="{{ username }}" name="username" type="text" placeholder="Username" required>
+              <i class="bx bxs-user"></i>
+          </div>
+          {{ errors.email }}
+          <div class="input-box">
+
+              <input value="{{ email }}" name="email" type="email" placeholder="Email" required>
+              <i class="bx bxs-lock-alt"></i>
+          </div>
+          {{ errors.year_of_experience }}
+          <div class="input-box">
+              <input value="{{ year_of_experience }}" min="0" max="100" name="year_of_experience" type="number" placeholder="Your experience" required>
+              <i class="bx bxs-lock-alt"></i>
+          </div>
+          {{ errors.password1 }}
+          <div class="input-box">
+              <input value="{{ password }}" name="password1" type="password" placeholder="Password" required>
+              <i class="bx bxs-lock-alt"></i>
+          </div>
+            {{ errors.password2 }}
+          <div class="input-box">
+              <input value="{{ password }}" name="password2" type="password" placeholder="Password again" required>
+              <i class="bx bxs-lock-alt"></i>
+          </div>
       <button type="submit" class="btn">Submit</button>
       <div class="register-link">
           <p>Already have account? <a href={% url 'login' %}>Login</a></p>

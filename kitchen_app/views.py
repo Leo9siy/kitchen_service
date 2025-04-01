@@ -33,36 +33,54 @@ def index(request: HttpRequest):
     return render(request, template_name="kitchen/index.html", context=context)
 
 
+def signup_view(request: HttpRequest):
+    context = {}
+    if request.method == "POST":
+        form = CookCreateForm(request.POST)
+        print(form.errors)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return HttpResponseRedirect(LOGIN_REDIRECT_URL)
+        context["errors"] = form.errors
+        context["username"] = request.POST["username"]
+        context["email"] = request.POST["email"]
+        context["year_of_experience"] = request.POST["year_of_experience"]
+
+    return render(
+        request,
+        template_name="registration/sign_up.html",
+        context=context
+    )
+
+
 def login_view(request: HttpRequest) -> HttpResponse:
-    if request.method == "GET":
-        return render(
-            request,
-            template_name="registration/login.html",
-        )
-    elif request.method == "POST":
+    context = {}
+
+    if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
 
-        user = authenticate(username=username, password=password)
+        user = authenticate(request, username=username, password=password)
         if user is not None:
-            if user.is_active:
-                login(request, user)
+            login(request, user)
 
-                if request.POST.get("remember"):
-                    request.session["username"] = username
-                    request.session["password"] = password
-                return redirect(LOGIN_REDIRECT_URL)
-            else:
-                return render(request, template_name="registration/login.html")
-        return render(
-            request,
-            template_name="registration/login.html",
-            context={
-                "errors": "Invalid username and/or password.",
-                "username": request.session.get("username", "")
-            },
-        )
-    return render(request, template_name="registration/login.html")
+            if request.POST.get("remember"):
+                request.session["username"] = username
+                request.session["password"] = password
+            return redirect(LOGIN_REDIRECT_URL)
+        context = {
+            "errors": "Invalid username and/or password.",
+            "username": username,
+        }
+    else:
+        context["username"] = request.session.get("username", "")
+        context["password"] = request.session.get("password", "")
+    return render(
+        request,
+        template_name="registration/login.html",
+        context=context
+    )
 
 
 def logout_view(request: HttpRequest) -> HttpResponse:
@@ -180,13 +198,6 @@ class IngredientCreateView(LoginRequiredMixin, CreateView):
     fields = "__all__"
     template_name = "kitchen/ingredient/create.html"
     success_url = reverse_lazy("kitchen_app:ingredients")
-
-
-class CookCreateView(CreateView):
-    model = CookModel
-    template_name = "registration/sign_up.html"
-    success_url = LOGIN_REDIRECT_URL
-    form_class = CookCreateForm
 
 
 class CookListView(ListView):

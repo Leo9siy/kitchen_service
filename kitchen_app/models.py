@@ -4,7 +4,6 @@ from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import QuerySet
-from django.templatetags import static
 
 from kitchen_service.settings.base import STATIC_URL
 
@@ -25,10 +24,6 @@ class CookModel(AbstractUser):
 
     class Meta:
         ordering = ["username"]
-
-    def clean(self):
-        if not(100 > self.year_of_experience >= 0):
-            raise ValidationError("Please enter a valid year of experience")
 
     def __str__(self) -> str:
         return self.username

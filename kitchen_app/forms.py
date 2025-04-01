@@ -6,31 +6,15 @@ from kitchen_app.models import CookModel, DishModel, IngredientModel
 
 
 class CookCreateForm(UserCreationForm):
-    username = forms.CharField(
-        label="", widget=forms.TextInput(
-            attrs={"placeholder": "Username"}
-        )
-    )
-    email = forms.EmailField(
-        label="", widget=forms.EmailInput(
-            attrs={"placeholder": "Email"}
-        )
-    )
-    year_of_experience = forms.IntegerField(
-        label="", widget=forms.NumberInput(
-            attrs={"placeholder": "Your experience"}
-        )
-    )
-    password1 = forms.CharField(
-        label="", widget=forms.PasswordInput(
-            attrs={"placeholder": "Password"}
-        )
-    )
-    password2 = forms.CharField(
-        label="", widget=forms.PasswordInput(
-            attrs={"placeholder": "Password (again)"}
-        )
-    )
+    username = forms.CharField()
+    email = forms.EmailField()
+    year_of_experience = forms.IntegerField()
+
+    def clean_year_of_experience(self):
+        year_of_experience = self.cleaned_data["year_of_experience"]
+        if year_of_experience < 0 or year_of_experience > 100:
+            raise forms.ValidationError("Enter a valid year of experience")
+        return year_of_experience
 
     class Meta:
         model = CookModel

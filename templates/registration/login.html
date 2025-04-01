@@ -11,7 +11,7 @@
         {% csrf_token %}
           <h1>Login</h1>
         {% if errors %}
-          {{ errors }}
+          <p>{{ errors }}</p>
         {% endif %}
           <div class="input-box">
               <input value="{{ username }}" name="username" type="text" placeholder="Username" required>
@@ -25,7 +25,6 @@
               <label>
                 <input type="checkbox" name="remember">Remember me
               </label>
-              <!--<a href="#">Forgot password</a>-->
           </div>
           <button type="submit" class="btn">Login</button>
 
